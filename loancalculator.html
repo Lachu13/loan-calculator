@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Loan Calculator</title>
+    </head>
+    <style>
+
+        body{
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bolder;
+            padding: 0;
+            margin: 0;
+            background: url("https://img.freepik.com/free-photo/top-view-notebooks-calculator_23-2149103982.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .container{
+           max-width: 500px;
+           height: 400px;
+            margin: 100px auto;
+
+        }
+        h2{
+            text-align: center;
+            text-decoration: underline;
+
+        }
+        .calculator{
+           border-radius: 10px;
+           padding: 10px 40px;
+           border: 1px solid yellow;
+            background-color: rgb(252, 252, 21);
+        }
+        .input-group{
+           margin-top: 10px;
+            margin-bottom: 15px;
+           
+
+        }
+        .input-group label{
+            display: block;
+            margin-bottom: 5px;
+
+        }
+        .input-group input{
+            width: 100%;
+            padding: 8px;
+            border: 2px solid greenyellow;
+        }
+        button{
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+           cursor: pointer;
+            background-color: yellowgreen;
+        }
+        #result{
+            color: darkgreen;
+            font-weight: 600;
+            margin-top:20px;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+    </style>
+    <body>
+        <div class="container">
+            <div class="Calculator">
+                <h2>Loan Calculator</h2>
+                <div class="input-group">
+                    <label>Loan Amount</label>
+                    <input type="number" id="loanamount" placeholder="Enter Loan Amount">
+                </div>
+                <div class="input-group">
+                    <label>Intrest Rate</label>
+                    <input type="number" id="interestrate" placeholder="Enter Interest Rate">
+                </div>
+                <div class="input-group">
+                    <lable>Loan term(in months)</lable>
+                    <input type="number" id="months" placeholder="Enter Loan Term">
+                </div>
+                <button id="calculateBtn">calculate</button>
+                <div id="result">
+                    Result
+                </div>
+            
+            </div>
+        </div>
+        <script>
+
+            document.getElementById('calculateBtn').addEventListener('click',calculateLoan);
+
+            function calculateLoan(){
+                const loanamount=parseFloat(document.getElementById("loanamount").value);
+                const Interest=parseFloat(document.getElementById("interestrate").value);
+                const term=parseFloat(document.getElementById("months").value);
+                     
+
+                    if(!loanamount||!Interest||!term){
+                        alert("Please Enter all the Fiels")
+                    }
+
+                    const monthlyinterest=Interest/100/12;
+                    const totalpayments=term;
+                    const monthlypayment=(loanamount*monthlyinterest)/(1-Math.pow(1+monthlyinterest, -totalpayments));
+            
+                    const totalInterest=(monthlypayment*totalpayments)-loanamount;
+
+                    displayResult(monthlypayment,totalInterest);
+            }
+function displayResult(monthlypayment,totalInterest){
+    const resultdiv=document.getElementById('result')
+    
+    resultdiv.innerHTML=`
+            <p><strong>Monthly Payment: ${monthlypayment.toFixed(2)}</strong></p>
+            <p><strong>Total Interest: ${totalInterest.toFixed(2)}</strong></p>
+            `;
+
+}
+            </script>
+    </body>
+
+</html>
